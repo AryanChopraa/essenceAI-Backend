@@ -1,18 +1,22 @@
 const { CharacterTextSplitter } = require("langchain/text_splitter");
 
 // LangChain text splitter
-async function splitDocument() {
-  const response = await fetch('podcasts.txt');
-  const text = await response.text();
+async function splitDocument(text) {
+  const arrOfText = []  
 
   const splitter = new CharacterTextSplitter({
     separator: " ",
-    chunkSize: 150,
+    chunkSize: 200,
     chunkOverlap: 15,
   });
   
   const output = await splitter.createDocuments([text]);
-  console.log(output)
+  output.map((item) => {
+    arrOfText.push(item.pageContent)
+  })
+
+  return arrOfText;
 
 }
-splitDocument()
+
+module.exports = splitDocument;

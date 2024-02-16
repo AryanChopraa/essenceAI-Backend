@@ -10,6 +10,9 @@ const fetchTranscriptMiddleware = async (req, res, next) => {
   
       // Fetch transcript for the provided video URL
       const Transcript = await YoutubeTranscript.fetchTranscript(videoUrl)
+  
+
+    
 
 
 

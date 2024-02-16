@@ -20,9 +20,10 @@ const cleanData = async (req, res, next) => {
 
         // Create a single object with the concatenated text and total duration in minutes
         const singleObject = {
-            text: concatenatedText.trim(), // Remove trailing space
+            text: concatenatedText.trim().split('\n').join(' '), // Remove trailing space
             durationMinutes: totalDurationMinutes.toFixed(2)/2 // Convert to 2 decimal places
         };
+
 
         // Attach the single object to the request object
         req.transcript = singleObject;
