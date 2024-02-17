@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const summary = require('./routes/summary');
+const chat = require('./routes/chat');
 var cors = require('cors')
 
 // Load environment variables from .env file
@@ -18,6 +19,7 @@ app.use(morgan('dev')); // Log HTTP requests to the console
 app.use(cors())
 
 app.use("/summary",summary);
+app.use("/chat",chat);
  
 app.get('/', (req, res) => {
     res.send('Hello, World!');

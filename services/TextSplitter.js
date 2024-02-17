@@ -6,8 +6,8 @@ async function splitDocument(text) {
 
   const splitter = new CharacterTextSplitter({
     separator: " ",
-    chunkSize: 200,
-    chunkOverlap: 15,
+    chunkSize: 500,
+    chunkOverlap: 100,
   });
   
   const output = await splitter.createDocuments([text]);

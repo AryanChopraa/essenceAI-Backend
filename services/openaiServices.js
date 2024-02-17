@@ -40,22 +40,19 @@ const textEmbeddings = async(splittedText) => {
 }
 
 const chat = async(query,simmilarEmbeddings) => {
-    const transcript = simmilarEmbeddings.map((item)=>{
-        return item.content
-
+    const userQuery = query[query.length-1].content
+    console.log("thius is user query",userQuery)
+    const contextArr = query.slice(0, -1);
+    console.log("this is context arr",contextArr)
+    var transcriptarr = []
+    await simmilarEmbeddings.map((item)=>{
+        transcriptarr.push(item.content)
     })
 
-    [
-        {
-          id: 81,
-          content: "of coding don't try to program before you know how to code and don't waste all of your time coding and not programming subscribe smash the like button and go break some eggs",
-          similarity: 0.999998807907112
-        }
-      ]
     const chatArr = [
-
-        {"role": "system", "content": "You are a chat with video assistant that replies to queries related to the youtube video whose link is shared with you , so be polite and useful , the user will ask you a question about the video and you will be provided with the simmillar simmilarity search you will receive the related video transcripts , stick to those transcripts and try to answer the query , DONT TALK GIBBERISH OR talk general rubbish be clear and precise and if you Dont know a answer just say ## Really sorry , but i Dont know the answer to that ! Try again ##"},
-        {"role": "user", "content": `Question: ${query} , Related video transcripts array:${transcript}`},
+        {"role": "system", "content": `You are an enthusiastic Youtube Video expert who loves answering various questions related to the youtube video to people. You will be given two pieces of information - some context about youtube videos and a question. Your main job is to formulate a short answer to the question using the provided context and you can be a a little generalized if and only if you know the answer or think it can add value to the answer. If you are unsure and cannot find the answer in the context or you don't know, say, "Sorry, I don't know the answer." Please do not make up the answer.`},
+        ...contextArr,
+        {"role": "user", "content": `Context: ${transcriptarr} Question: ${userQuery}`},
         ]
     console.log(chatArr)
 
@@ -69,7 +66,10 @@ const chat = async(query,simmilarEmbeddings) => {
         model: "gpt-4",
       });
 
-      console.log(completion.choices[0]);
+      console.log(completion.choices[0].message.content);
+    
+
+      return completion.choices[0].message
     }
 
 
