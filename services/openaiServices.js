@@ -45,6 +45,7 @@ const chat = async(query,simmilarEmbeddings) => {
     const contextArr = query.slice(0, -1);
     console.log("this is context arr",contextArr)
     var transcriptarr = []
+    console.log(simmilarEmbeddings)
     await simmilarEmbeddings.map((item)=>{
         transcriptarr.push(item.content)
     })
